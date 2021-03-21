@@ -1,0 +1,53 @@
+---
+- name: create dirs
+  file:
+    path: "{{ item.dst_dir }}"
+    state: directory
+    mode: "0755"
+  loop: "{{ library }}"
+
+- name: download library
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dst_dir }}/{{ item.name }}"
+    mode: "{{ item.mode }}"
+    checksum: "{{ item.chksum }}"
+  loop: "{{ library }}"
+  when: not ansible_check_mode
+
+- name: download template
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.dst_dir }}/{{ item.name }}"
+    mode: "{{ item.mode }}"
+    checksum: "{{ item.chksum }}"
+  loop: "{{ template }}"
+  when:
+    - add_template
+    - not ansible_check_mode
+
+- name: install backup scripts from files/backup
+  copy:
+    src: "{{ src_script_location }}"
+    dest: "/usr/local/sbin/"
+    owner: root
+    group: root
+    mode: '0700'
+  when: install_backup_scripts
+
+- name: create dir for backups
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    mode: "0700"
+    owner: root
+    group: root
+  when: create_backup_dir
+
+- name: install pbzip2
+  apt:
+    name: pbzip2
+    update_cache: true
+    install_recommends: no
+    cache_valid_time: 86400
+  when: install_pbzip2
