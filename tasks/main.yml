@@ -4,7 +4,7 @@
     path: "{{ item.dst_dir }}"
     state: directory
     mode: "0755"
-  loop: "{{ backup_functions_library }}"
+  loop: "{{ library }}"
 
 - name: download library
   get_url:
@@ -12,7 +12,7 @@
     dest: "{{ item.dst_dir }}/{{ item.name }}"
     mode: "{{ item.mode }}"
     checksum: "{{ item.chksum }}"
-  loop: "{{ backup_functions_library }}"
+  loop: "{{ library }}"
   when: not ansible_check_mode
 
 - name: download template
@@ -21,7 +21,7 @@
     dest: "{{ item.dst_dir }}/{{ item.name }}"
     mode: "{{ item.mode }}"
     checksum: "{{ item.chksum }}"
-  loop: "{{ backup_functions_template }}"
+  loop: "{{ template }}"
   when:
     - add_template
     - not ansible_check_mode
