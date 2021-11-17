@@ -6,16 +6,18 @@ install_backup_scripts: true
 create_backup_dir: true
 src_script_location: files/backup/
 
-library:
+backup_functions_version: 1-latest
+
+backup_functions_library:
   - name: backup-functions.sh
-    url: https://oss.help/scripts/backup/backup-functions/backup-functions.sh
-    chksum: "sha256:https://oss.help/scripts/backup/backup-functions/SHA256SUMS"
+    url: "https://oss.help/scripts/backup/backup-functions/{{ backup_functions_version }}/backup-functions.sh"
+    chksum: "sha256:https://oss.help/scripts/backup/backup-functions/{{ backup_functions_version }}/SHA256SUMS"
     dst_dir: /usr/local/include/osshelp
     mode: 600
 
-template:
+backup_functions_template:
   - name: custom.backup
-    url: https://oss.help/scripts/backup/backup-functions/custom.backup
-    chksum: "sha256:https://oss.help/scripts/backup/backup-functions/SHA256SUMS"
+    url: "https://oss.help/scripts/backup/backup-functions/{{ backup_functions_version }}/custom.backup"
+    chksum: "sha256:https://oss.help/scripts/backup/backup-functions/{{ backup_functions_version }}/SHA256SUMS"
     dst_dir: /usr/local/sbin
     mode: 700
