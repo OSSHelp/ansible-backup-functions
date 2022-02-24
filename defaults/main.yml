@@ -6,7 +6,7 @@ install_backup_scripts: true
 create_backup_dir: true
 src_script_location: files/backup/
 
-backup_functions_version: 1-latest
+backup_functions_version: 2-latest
 
 backup_functions_library:
   - name: backup-functions.sh

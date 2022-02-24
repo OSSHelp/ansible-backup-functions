@@ -9,7 +9,10 @@ The role which installs [backup-functions](https://github.com/OSSHelp/backup-fun
 ```yaml
   roles:
     - role: backup-functions
+      backup_functions_version: 2-latest
 ```
+
+Where 1-latest is backup-functions version 3.x.x and 2-latest is version 4.x.x.
 
 ## Available parameters
 
@@ -17,6 +20,7 @@ The role which installs [backup-functions](https://github.com/OSSHelp/backup-fun
 
 | Param | Default | Description |
 | -------- | -------- | -------- |
+| `backup_functions_version` | `1-latest` | Version to install. You need to select a release the tag, not the library version itself. For example, `1.1.3` here will result in library v3.26.1 installlation. |
 | `backup_dir` | `/backup` | Directory for backup saving |
 | `create_backup_dir` | `true` | Create backup directory |
 | `add_template` | `false` | Download custom.backup template |
